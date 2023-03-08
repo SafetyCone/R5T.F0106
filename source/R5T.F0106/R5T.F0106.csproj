@@ -12,4 +12,11 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/SafetyCone/R5T.F0106.git</RepositoryUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\R5T.T0161\source\R5T.T0161.Z001\R5T.T0161.Z001.csproj" />
+    <ProjectReference Include="..\..\..\R5T.T0161\source\R5T.T0161\R5T.T0161.csproj" />
+    <ProjectReference Include="..\..\..\R5T.T0162\source\R5T.T0162.F001\R5T.T0162.F001.csproj" />
+    <ProjectReference Include="..\..\..\R5T.T0162\source\R5T.T0162.Z000\R5T.T0162.Z000.csproj" />
+    <ProjectReference Include="..\..\..\R5T.Z0029\source\R5T.Z0029\R5T.Z0029.csproj" />
+  </ItemGroup>
 </Project>
