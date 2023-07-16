@@ -64,7 +64,7 @@ namespace R5T.F0106.Internal
                 argumentsList);
         }
 
-        public string Get_ArgumentsList(FullMethodName fullMethodName)
+        public string Get_ArgumentsList(IFullMethodName fullMethodName)
         {
             var indexOfOpen = Instances.StringOperator.IndexOf(
                 Instances.Syntax.ArgumentsListParenthesis_Open_Character,
@@ -87,7 +87,7 @@ namespace R5T.F0106.Internal
             return output;
         }
 
-        public string Get_GenericTypeArgumentsList(MethodName methodName)
+        public string Get_GenericTypeArgumentsList(IMethodName methodName)
         {
             var indexOfOpen = Instances.StringOperator.IndexOf(
                 Instances.Syntax.GenericTypeArgumentListBracket_Open_Character,

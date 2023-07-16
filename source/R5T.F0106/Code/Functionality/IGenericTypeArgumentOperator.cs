@@ -15,8 +15,8 @@ namespace R5T.F0106
         {
             // Check for the presence of the generic type argument list open bracket ("<", the open angle-bracket).
             var output = Instances.StringOperator.Contains(
-                Instances.Syntax.GenericTypeArgumentListBracket_Open_Character,
-                memberName);
+                memberName,
+                Instances.Syntax.GenericTypeArgumentListBracket_Open_Character);
 
             return output;
         }

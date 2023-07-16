@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 using R5T.T0132;
 using R5T.T0161;
@@ -16,7 +14,7 @@ namespace R5T.F0106
         private static Internal.IMethodNameOperator Internal => F0106.Internal.MethodNameOperator.Instance;
 
 
-        public ArgumentName[] Get_ArgumentNames(FullMethodName fullMethodName)
+        public IArgumentName[] Get_ArgumentNames(IFullMethodName fullMethodName)
         {
             var argumentsList = Internal.Get_ArgumentsList(fullMethodName);
 
@@ -41,7 +39,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public TypeName[] Get_ArgumentTypeNames(FullMethodName fullMethodName)
+        public ITypeName[] Get_ArgumentTypeNames(IFullMethodName fullMethodName)
         {
             var argumentsList = Internal.Get_ArgumentsList(fullMethodName);
 
@@ -66,7 +64,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public TypeName Get_ContainingTypeName(TypeNamedMethodName typeNamedMethodName)
+        public ITypeName Get_ContainingTypeName(ITypeNamedMethodName typeNamedMethodName)
         {
             var lastIndexOfNamespaceTokenSeparator = Instances.NamespaceNameOperator.Get_LastIndexOfNamespaceTokenSeparator(typeNamedMethodName.Value);
 
@@ -78,7 +76,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public FullMethodName Get_FullMethodName(KindMarkedFullMethodName kindMarkedFullMethodName)
+        public IFullMethodName Get_FullMethodName(IKindMarkedFullMethodName kindMarkedFullMethodName)
         {
             var removedMethodKindMarker = Instances.MemberKindOperator.RemoveKindMark(kindMarkedFullMethodName.Value);
 
@@ -86,7 +84,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public FullMethodName Get_FullMethodName(KindMarkedFullMemberName kindMarkedFullMemberName)
+        public IFullMethodName Get_FullMethodName(IKindMarkedFullMemberName kindMarkedFullMemberName)
         {
             var kindMarkedFullMethodName = this.Get_KindMarkedFullMethodName(kindMarkedFullMemberName);
 
@@ -94,7 +92,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public GenericTypeArgumentName[] Get_GenericTypeArgumentNames(MethodName methodName)
+        public IGenericTypeArgumentName[] Get_GenericTypeArgumentNames(IMethodName methodName)
         {
             var isGeneric = this.Is_Generic(methodName);
             if (!isGeneric)
@@ -114,7 +112,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public GenericTypeArgumentName[] Get_GenericTypeArgumentNames(TypeNamedMethodName typeNamedMethodName)
+        public IGenericTypeArgumentName[] Get_GenericTypeArgumentNames(ITypeNamedMethodName typeNamedMethodName)
         {
             var methodName = this.Get_MethodName(typeNamedMethodName);
 
@@ -122,7 +120,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public KindMarkedFullMethodName Get_KindMarkedFullMethodName(KindMarkedFullMemberName kindMarkedFullMemberName)
+        public IKindMarkedFullMethodName Get_KindMarkedFullMethodName(IKindMarkedFullMemberName kindMarkedFullMemberName)
         {
             var isMethodKindMarked = Instances.MemberKindOperator.Is_MethodKindMarked(kindMarkedFullMemberName.Value);
             if(!isMethodKindMarked)
@@ -134,7 +132,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public MethodName Get_MethodName(TypeNamedMethodName typeNamedMethodName)
+        public IMethodName Get_MethodName(ITypeNamedMethodName typeNamedMethodName)
         {
             var lastIndexOfNamespaceTokenSeparator = Instances.NamespaceNameOperator.Get_LastIndexOfNamespaceTokenSeparator(typeNamedMethodName.Value);
 
@@ -146,7 +144,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public TypeName Get_ReturnTypeName(FullMethodName fullMethodName)
+        public ITypeName Get_ReturnTypeName(IFullMethodName fullMethodName)
         {
             var tokens = Instances.StringOperator.Split(
                 Instances.TokenSeparators.MethodReturnTypeTokenSeparator_Character,
@@ -158,7 +156,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public TypeNamedMethodName Get_TypeNamedMethodName(FullMethodName fullMethodName)
+        public ITypeNamedMethodName Get_TypeNamedMethodName(IFullMethodName fullMethodName)
         {
             var indexOfFirstOpenParenthesis = Instances.StringOperator.IndexOf_OrNotFound(
                 Instances.Characters.OpenParenthesis,
@@ -166,7 +164,7 @@ namespace R5T.F0106
 
             // Everything up to the index of the first open parenthesis (including the generic type arguments for the method) is part of the type-named method name.
             var typeNamedMethodName = Instances.StringOperator.Get_FirstNCharacters_ByExclusiveIndex(
-                fullMethodName,
+                fullMethodName.Value,
                 indexOfFirstOpenParenthesis);
 
             var output = typeNamedMethodName.ToTypeNamedMethodName();
@@ -193,7 +191,7 @@ namespace R5T.F0106
             return output;
         }
 
-        public bool Is_Generic(MethodName methodName)
+        public bool Is_Generic(IMethodName methodName)
         {
             var output = Instances.GenericTypeArgumentOperator.Has_GenericTypeArgumentList(methodName.Value);
             return output;
